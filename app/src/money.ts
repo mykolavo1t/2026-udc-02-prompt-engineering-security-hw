@@ -85,7 +85,10 @@ function validateRange(value: number, min: number, max: number, name: string): v
 export function splitEvenly(totalCents: number, n: number): number[] {
   if (n <= 0) throw new Error(`n must be a positive integer, got ${n}`);
   const base = Math.floor(totalCents / n);
-  const remainder = totalCents % n;
+  // JS `%` uses truncation (not floor), so for negative totalCents it yields a
+  // negative remainder that makes the distribution loop a no-op. Computing the
+  // remainder from base*n ensures it is always in [0, n-1].
+  const remainder = totalCents - base * n;
   // Plain for-loop with a single pre-allocated array avoids the intermediate
   // ArrayLike object that Array.from({ length: n }, ...) creates on every call.
   // At ~50,000 calls/s with small n this eliminates a measurable GC allocation

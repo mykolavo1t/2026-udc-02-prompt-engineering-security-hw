@@ -53,6 +53,22 @@ describe("splitEvenly", () => {
   it("throws when n is 0", () => {
     expect(() => splitEvenly(100, 0)).toThrow(); // FAILS: current impl returns []
   });
+  it("negative total sums exactly to totalCents", () => {
+    // JS % keeps the dividend's sign, so the old code gave remainder=-2 for
+    // -10001 % 3, meaning the distribution loop never ran and shares summed to -10002.
+    const shares = splitEvenly(-10001, 3);
+    expect(shares.reduce((a, b) => a + b, 0)).toBe(-10001);
+  });
+  it("negative total with remainder=1 distributes correctly", () => {
+    // -10 / 3: base=-4, true remainder=2; first 2 shares are -3, last is -4
+    const shares = splitEvenly(-10, 3);
+    expect(shares.reduce((a, b) => a + b, 0)).toBe(-10);
+    expect(shares).toHaveLength(3);
+  });
+  it("negative total split 2 ways sums correctly", () => {
+    const shares = splitEvenly(-1, 2);
+    expect(shares.reduce((a, b) => a + b, 0)).toBe(-1);
+  });
 });
 
 describe("applyDiscount", () => {

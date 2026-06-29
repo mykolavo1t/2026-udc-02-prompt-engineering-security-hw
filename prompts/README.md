@@ -25,6 +25,8 @@ generic copies from the internet. This is Task A of the WS2 homework.
 | `performance_optimization.md` | perf | `app/src/money.ts` | — |
 | `architecture_review.md` | review | `app/src/money.ts` | — |
 | `break_down_feature.md` | planning | generic | ✅ `/break-down-feature` |
+| `validate-discount-percent.md` | feature | `app/src/money.ts` | — |
+| `fix-splitevenly-negative.md` | debug | `app/src/money.ts` | — |
 | `security-audit.md` | security | `app/src/money.ts` | ✅ `/security-audit` |
 | `sanitize-before-commit.md` | security | staged changes | — |
 
